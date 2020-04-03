@@ -64,6 +64,16 @@ export default class Chat extends Component {
     }
   };
 
+  handleDelete = async() => {
+    try {
+      await db.ref('chats').remove();
+
+      this.setState({ content: '' });
+    } catch (error) {
+      this.setState({ writeError: error.message });
+    }
+  };
+
   formatTime(timestamp) {
     const d = new Date(timestamp);
     return `${d.getDate()}/${(d.getMonth()+1)}/${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}`;
@@ -96,8 +106,11 @@ export default class Chat extends Component {
           {error && <p className="text-danger">{error}</p>}
           <button type="submit" className="btn btn-submit px-5 mt-4">Send</button>
         </form>
-        <div className="py-5 mx-3">
+        <div className="py-2 mx-3">
           Login in as: <strong className="text-info">{this.user.email}</strong>
+          <div>
+            <button type="button" className="btn btn-danger px-4 mt-2" onClick={this.handleDelete}>Clear chat</button>
+          </div>
         </div>
       </div>
     );
