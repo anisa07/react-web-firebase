@@ -67,7 +67,6 @@ export default class Chat extends Component {
   handleDelete = async() => {
     try {
       await db.ref('chats').remove();
-
       this.setState({ content: '' });
     } catch (error) {
       this.setState({ writeError: error.message });
@@ -109,7 +108,7 @@ export default class Chat extends Component {
         <div className="py-2 mx-3">
           Login in as: <strong className="text-info">{this.user.email}</strong>
           <div>
-            <button type="button" className="btn btn-danger px-4 mt-2" onClick={this.handleDelete}>Clear chat</button>
+            <button type="button" className="btn btn-danger px-4 mt-3" onClick={this.handleDelete}>Clear chat</button>
           </div>
         </div>
       </div>

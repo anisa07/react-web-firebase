@@ -11,3 +11,5 @@ export const signInWithGitHub = () => auth().signInWithPopup(new auth.GithubAuth
 export const logout = () => auth().signOut();
 
 export const userIsSigned = () => auth().currentUser;
+
+export const removeUser = () => userIsSigned().delete();
