@@ -1,10 +1,10 @@
 import firebase from 'firebase';
-import * as config from '../config/config';
+import { firebaseConfig } from '../config/config';
 
 const configuration = {
-    apiKey: config.apiKey,
-    authDomain: config.authDomain,
-    databaseURL: config.databaseURL
+    apiKey: firebaseConfig.apiKey,
+    authDomain: firebaseConfig.authDomain,
+    databaseURL: firebaseConfig.databaseURL
 };
 
 firebase.initializeApp(configuration);
