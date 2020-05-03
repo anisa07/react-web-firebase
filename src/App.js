@@ -5,12 +5,18 @@ import {
     Switch,
     Redirect
 } from "react-router-dom";
+import ReactGA from 'react-ga';
 import Home from "./pages/Home";
 import Chat from "./pages/Chat";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import { auth } from "./services/firebase";
 import './styles.css';
+
+function initializeReactGA() {
+    ReactGA.initialize('UA-162722257-1');
+    ReactGA.pageview('/');
+}
 
 function PrivateRoute({ component: Component, authenticated, ...rest }) {
     return (
@@ -37,7 +43,7 @@ function PublicRoute({ component: Component, authenticated, ...rest }) {
                 authenticated === false ? (
                     <Component {...props} />
                 ) : (
-                    <Redirect to="/chat" />
+                    <Redirect to="/" />
                 )
             }
         />
@@ -79,7 +85,7 @@ class App extends Component {
                 <Switch>
                     <Route exact path="/" component={Home} />
                     <PrivateRoute
-                        path="/chat"
+                        path="/"
                         authenticated={this.state.authenticated}
                         component={Chat}
                     />
