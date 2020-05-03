@@ -19,6 +19,7 @@ function initializeReactGA() {
 }
 
 function PrivateRoute({ component: Component, authenticated, ...rest }) {
+
     return (
         <Route
             {...rest}
@@ -43,7 +44,7 @@ function PublicRoute({ component: Component, authenticated, ...rest }) {
                 authenticated === false ? (
                     <Component {...props} />
                 ) : (
-                    <Redirect to="/" />
+                    <Redirect to="/chat" />
                 )
             }
         />
@@ -85,7 +86,7 @@ class App extends Component {
                 <Switch>
                     <Route exact path="/" component={Home} />
                     <PrivateRoute
-                        path="/"
+                        path="/chat"
                         authenticated={this.state.authenticated}
                         component={Chat}
                     />
