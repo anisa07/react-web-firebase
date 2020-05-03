@@ -13,10 +13,14 @@ import Login from "./pages/Login";
 import { auth } from "./services/firebase";
 import './styles.css';
 
-function initializeReactGA() {
-    ReactGA.initialize('UA-162722257-1');
-    ReactGA.pageview('/');
-}
+ReactGA.initialize('UA-162722257-1');
+ReactGA.set({
+    userId: auth().currentUser
+});
+ReactGA.event({
+    category: "Sign Up",
+    action: "User signed up button",
+});
 
 function PrivateRoute({ component: Component, authenticated, ...rest }) {
 
