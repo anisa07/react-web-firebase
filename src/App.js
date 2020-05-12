@@ -5,30 +5,22 @@ import {
     Switch,
     Redirect
 } from "react-router-dom";
-import ReactGA from 'react-ga';
 import Home from "./pages/Home";
 import Chat from "./pages/Chat";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import { auth } from "./services/firebase";
+import analytics from './analytics';
 import './styles.css';
 
-ReactGA.initialize('UA-162722257-1');
-ReactGA.set({
-    userId: auth().currentUser
-});
-ReactGA.event({
-    category: "Sign Up",
-    action: "User signed up button",
-});
+analytics.init();
 
 function PrivateRoute({ component: Component, authenticated, ...rest }) {
-
     return (
         <Route
             {...rest}
             render={props =>
-                authenticated === true ? (
+                !!authenticated ? (
                     <Component {...props} />
                 ) : (
                     <Redirect
@@ -45,7 +37,7 @@ function PublicRoute({ component: Component, authenticated, ...rest }) {
         <Route
             {...rest}
             render={props =>
-                authenticated === false ? (
+                !authenticated ? (
                     <Component {...props} />
                 ) : (
                     <Redirect to="/chat" />
@@ -81,7 +73,7 @@ class App extends Component {
     }
 
     render() {
-        return this.state.loading === true ? (
+        return !!this.state.loading ? (
             <div className="spinner-border text-success" role="status">
                 <span className="sr-only">Loading...</span>
             </div>

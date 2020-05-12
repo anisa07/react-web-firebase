@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { signup, signInWithGoogle, signInWithGitHub } from "../helpers/auth";
-export default class SignUp extends Component {
+import analytics from '../analytics';
 
+export default class SignUp extends Component {
   constructor() {
     super();
     this.state = {
@@ -23,6 +24,11 @@ export default class SignUp extends Component {
     this.setState({ error: '' });
     try {
       await signup(this.state.email, this.state.password);
+      analytics.setEvent({
+        category: 'sign',
+        action: 'sign up with pwd and login',
+        label: 'sign up page'
+      });
     } catch (error) {
       this.setState({ error: error.message });
     }
@@ -31,6 +37,11 @@ export default class SignUp extends Component {
   googleSignIn = async () => {
     try {
       await signInWithGoogle();
+      analytics.setEvent({
+        category: 'sign',
+        action: 'sign up with google',
+        label: 'sign up page'
+      });
     } catch (error) {
       this.setState({ error: error.message });
     }
@@ -39,6 +50,11 @@ export default class SignUp extends Component {
   githubSignIn = async () => {
     try {
       await signInWithGitHub();
+      analytics.setEvent({
+        category: 'sign',
+        action: 'sign up with github',
+        label: 'sign up page'
+      });
     } catch (error) {
       this.setState({ error: error.message });
     }
